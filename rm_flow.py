@@ -1,7 +1,6 @@
 from prefect import flow
 from prefect.blocks.system import Secret
 import os
-from github_pipeline import run_pipeline  # imports your code
 
 @flow(log_prints=True)
 def main(db_name: str = "dlt_test"):
@@ -17,7 +16,8 @@ def main(db_name: str = "dlt_test"):
     # Tell dlt which MotherDuck database to use
     os.environ["DESTINATION__MOTHERDUCK__CREDENTIALS__DATABASE"] = db_name
 
-    return run_pipeline()
+    import github_pipeline
+    return github_pipeline.run_pipeline()
 
 if __name__ == "__main__":
     main()
