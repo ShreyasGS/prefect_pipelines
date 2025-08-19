@@ -6,7 +6,7 @@ import dlt
 from prefect_github import GitHubCredentials
 from prefect.futures import wait
 from prefect.task_runners import ThreadPoolTaskRunner
-import github_pipeline  # has github_source + run_pipeline helpers
+import github_mlt_pipeline  # has github_source + run_pipeline helpers
 
 def _set_env(md_db: str):
     # GitHub PAT (GitHubCredentials.token is SecretStr -> use .get_secret_value())
@@ -22,7 +22,7 @@ def _set_env(md_db: str):
 def run_resource(resource_name: str, md_db: str):
     _set_env(md_db)
     # pick just one resource from your dlt source
-    src = github_pipeline.github_source.with_resources(resource_name)
+    src = github_mlt_pipeline.github_source.with_resources(resource_name)
     # unique pipeline per resource avoids dlt state clashes
     pipe = dlt.pipeline(
         pipeline_name=f"rest_api_github__{resource_name}",
