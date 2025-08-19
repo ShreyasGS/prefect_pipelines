@@ -1,10 +1,8 @@
 from prefect import flow, task
-from prefect.task_runners import ConcurrentTaskRunner
 from prefect.blocks.system import Secret
 import os
 import dlt
 from prefect_github import GitHubCredentials
-from prefect.futures import wait
 from prefect.task_runners import ThreadPoolTaskRunner
 import github_mlt_pipeline  # has github_source + run_pipeline helpers
 
