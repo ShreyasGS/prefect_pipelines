@@ -22,6 +22,12 @@ config: RESTAPIConfig = {
             "path": "repos/dlt-hub/dlt/contributors",
           },
         },
+        {
+          "name": "issues",
+          "endpoint": {
+            "path": "repos/dlt-hub/dlt/issues",
+          },
+        },
     ],
 }
 

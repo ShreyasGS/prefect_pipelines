@@ -4,7 +4,7 @@ import os
 import dlt
 from prefect_github import GitHubCredentials
 from prefect.task_runners import ThreadPoolTaskRunner
-import github_mlt_pipeline  # has github_source + run_pipeline helpers
+ 
 
 def _set_env(md_db: str):
     # GitHub PAT (GitHubCredentials.token is SecretStr -> use .get_secret_value())
@@ -19,6 +19,7 @@ def _set_env(md_db: str):
 @task(retries=2, log_prints=True)
 def run_resource(resource_name: str, md_db: str):
     _set_env(md_db)
+    import github_mlt_pipeline
     # pick just one resource from your dlt source
     src = github_mlt_pipeline.github_source.with_resources(resource_name)
     # unique pipeline per resource avoids dlt state clashes
@@ -34,6 +35,7 @@ def run_resource(resource_name: str, md_db: str):
 
 @flow(task_runner=ThreadPoolTaskRunner(max_workers=2), log_prints=True)
 def main(md_db: str = "dlt_test"):
+    run_resource("issues", md_db)
     a = run_resource.submit("repos", md_db)
     b = run_resource.submit("contributors", md_db)
     return a.result(), b.result()
