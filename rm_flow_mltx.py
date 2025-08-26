@@ -38,7 +38,7 @@ def main(md_db: str = "dlt_test"):
     
     a = run_resource.submit("repos", md_db)
     b = run_resource.submit("contributors", md_db)
-    c = run_resource("issues", md_db)
+    c = run_resource.submit("issues", md_db)
     return a.result(), b.result(), c.result()
 
 if __name__ == "__main__":
