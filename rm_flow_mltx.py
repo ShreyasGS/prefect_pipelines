@@ -35,10 +35,11 @@ def run_resource(resource_name: str, md_db: str):
 
 @flow(task_runner=ThreadPoolTaskRunner(max_workers=2), log_prints=True)
 def main(md_db: str = "dlt_test"):
-    run_resource("issues", md_db)
+    
     a = run_resource.submit("repos", md_db)
     b = run_resource.submit("contributors", md_db)
-    return a.result(), b.result()
+    c = run_resource("issues", md_db)
+    return a.result(), b.result(), c.result()
 
 if __name__ == "__main__":
     main()
