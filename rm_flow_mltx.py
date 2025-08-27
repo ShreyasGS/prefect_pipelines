@@ -33,7 +33,7 @@ def run_resource(resource_name: str, md_db: str):
     print(f"{resource_name} -> {info}")
     return info
 
-@flow(task_runner=ThreadPoolTaskRunner(max_workers=2), log_prints=True)
+@flow(task_runner=ThreadPoolTaskRunner(max_workers=3), log_prints=True)
 def main(md_db: str = "dlt_test"):
     
     a = run_resource.submit("repos", md_db)
