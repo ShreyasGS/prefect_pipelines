@@ -36,7 +36,7 @@ def run_resource(resource_name: str, md_db: str, start_date: str = None, end_dat
     pipe = dlt.pipeline(
         pipeline_name=f"rest_api_github__{resource_name}",
         destination="motherduck",
-        dataset_name="rest_api_data_mltx",
+        dataset_name="rest_api_data_mlt_backfill",
         progress="log",
     )
     info = pipe.run(src)
