@@ -51,10 +51,9 @@ config: RESTAPIConfig = {
                     "sort": "oldest",      # Ensures ascending creation order
                     "per_page": 100
                 },
-                "incremental": {           #backfill
+                "incremental": {           
                     "cursor_path": "created_at",  
                     "initial_value": "2025-07-01T00:00:00Z",
-                    "end_value": "2025-08-01T00:00:00Z",
                     "row_order": "asc"
                 }
           },
