@@ -13,9 +13,7 @@ def set_github_pat_env():
 def make_bq_destination():
     gcp = GcpCredentials.load("gcp-creds")
     bq  = BigQueryWarehouse.load("bq-warehouse")
-    creds = gcp.get_credentials_from_service_account(
-        scopes=["https://www.googleapis.com/auth/cloud-platform"]
-    )
+    creds = gcp.get_credentials_from_service_account()
     # Prefer the project from your BigQuery block, then fall back to the creds JSON
     project = bq.project or gcp.service_account_info.get("project_id")
     if not project:
