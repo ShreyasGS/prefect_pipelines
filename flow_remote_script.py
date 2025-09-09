@@ -14,8 +14,9 @@ def make_bq_destination():
     gcp = GcpCredentials.load("gcp-creds")
     bq  = BigQueryWarehouse.load("bq-warehouse")
     creds = gcp.get_credentials_from_service_account()
-    # Prefer the project from your BigQuery block, then fall back to the creds JSON
-    project = gcp.service_account_info.get("project_id")
+    # get project id from service account info
+    sa_info = gcp.service_account_info.get_secret_value() if gcp.service_account_info else {}
+    project = sa_info.get("project_id")
     if not project:
         raise ValueError(
             "No GCP project found. Set it in the 'bq-warehouse' block or make sure "
