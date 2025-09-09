@@ -13,9 +13,8 @@ def set_github_pat_env():
 def make_bq_destination():
     gcp = GcpCredentials.load("gcp-creds")
     bq  = BigQueryWarehouse.load("bq-warehouse")
-    creds = gcp.get_credentials_from_service_account()
-    # get project id from service account info
-    sa_info = gcp.service_account_info.get_secret_value() if gcp.service_account_info else {}
+    creds = gcp.service_account_info.get_secret_value() or {}
+   
     project = sa_info.get("project_id")
     if not project:
         raise ValueError(
