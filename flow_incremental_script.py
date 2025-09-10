@@ -21,9 +21,9 @@ def make_bq_destination():
 @task(log_prints=True)
 def run_resource(resource_name: str, bq_dest: dlt.destinations.bigquery, incremental_date: str = None):
     
-    import data_pipeline
+    import github_pipeline
     #get base source
-    base_source = data_pipeline.github_source
+    base_source = github_pipeline.github_source
     #apply incremental hints to issues resource
     if resource_name == "issues" and incremental_date:
         base_source.issues.apply_hints(  # or: base_source.resources["issues"]
