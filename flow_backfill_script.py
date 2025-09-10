@@ -26,7 +26,7 @@ def run_resource(resource_name: str, bq_dest: dlt.destinations.bigquery, start_d
     base_source = github_pipeline.github_source
     #apply incremental hints to issues resource
     if resource_name == "forks" and start_date and end_date:
-        base_source.issues.apply_hints(  # or: base_source.resources["issues"]
+        base_source.forks.apply_hints(  # or: base_source.resources["issues"]
             incremental=dlt.sources.incremental(
                 "created_at",
                 initial_value=start_date,
