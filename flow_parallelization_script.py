@@ -3,6 +3,7 @@ import dlt
 from prefect import flow, task
 from prefect_github import GitHubCredentials
 from prefect_gcp import GcpCredentials
+from prefect.task_runners import ThreadPoolTaskRunner
 
 def set_github_pat_env():
     # GitHub PAT (GitHubCredentials.token is SecretStr -> use .get_secret_value())
